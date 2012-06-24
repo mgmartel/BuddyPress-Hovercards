@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: BuddyPress Hovercards
-Plugin URI: http://trenvo.nl
-Author: Mike Martel &iMath
+Plugin URI: https://github.com/mgmartel/BuddyPress-Hovercards/
+Author: Mike Martel & iMath
 Author URI: http://trenvo.nl
 Description: Adds hovercard to Buddypress avatars
 Version: 0.9

@@ -19,7 +19,7 @@
 
             <div class="update"><strong><?php _e("Last update", 'bp-hovercards'); ?></strong><br><?php bp_member_latest_update( 'length=10' ) ?></div>
 
-            <a href="<?php bp_member_link() ?>"><?php _e("View profile"); ?></a>
+            <a href="<?php bp_member_link() ?>"><?php _e("View profile", 'bp-hovercards'); ?></a>
 
         </div>
 
