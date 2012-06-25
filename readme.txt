@@ -2,8 +2,8 @@
 Contributors: Mike_Cowobo, imath
 Donate link: http://trenvo.nl/
 Tags: buddypress, hovercards
-Requires at least: 3.0
-Tested up to: 3.4
+Requires at least: WP 3.2.1, BP 1.5
+Tested up to: WP 3.4, BP 1.5.6
 Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
