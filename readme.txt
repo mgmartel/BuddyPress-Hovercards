@@ -16,7 +16,7 @@ This plugin adds hovercards (like on WordPress,com (Gravatar), Twitter, Facebook
 
 Hovercards are completely themable by adding a `hovercard.php` template to your (child) theme.
 
-Based on imath's blogpost [on BoddyPress xprofile hovercards](http://imath.owni.fr/2010/11/23/buddypress-xprofile-hovercard/) and uses the jQuery [Tipsy](http://onehackoranother.com/projects/jquery/tipsy/) library and [Rrrene's hovercards](https://github.com/rrrene/tipsy.hovercard).
+Based on imath's blogpost [on BuddyPress xprofile hovercards](http://imath.owni.fr/2010/11/23/buddypress-xprofile-hovercard/) and uses the jQuery [Tipsy](http://onehackoranother.com/projects/jquery/tipsy/) library and [Rrrene's hovercards](https://github.com/rrrene/tipsy.hovercard).
 
 == Installation ==
 
