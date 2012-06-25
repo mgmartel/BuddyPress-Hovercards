@@ -1,6 +1,7 @@
 // tipsy.hovercard, twitter style hovercards for tipsy
 // version 0.1.1
 // (c) 2010 René Föhring rf@bamaru.de
+// Modified by Mike Martel mike@trenvo.nl
 // released under the MIT license
 
 (function($) {
@@ -105,8 +106,10 @@
 })(jQuery);
 
 jQuery(document).ready(function() {
-    jQuery(".avatar").tipsyHoverCard();
+    // Add hovercards to our avatars
+    jQuery("img[class^='avatar user']").tipsyHoverCard();
 
+    // Make our hovercards hoverable (so you can add links inside them)
     jQuery('.tipsy').live('mouseover',function(e){
         clearTimeout(timeoutId);
     });
