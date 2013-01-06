@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: Mike_Cowobo, imath
+Contributors: Mike_Cowobo
 Donate link: http://trenvo.nl/
 Tags: buddypress, hovercards
 Requires at least: WP 3.2.1, BP 1.5
-Tested up to: WP 3.4, BP 1.5.6
-Stable tag: 0.9
+Tested up to: WP 3.4.2, BP 1.6.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,22 @@ Yes. If you want to add a custom hovercard, or change the displayed fields, copy
 1. Example hovercard using the template included in the plugin.
 
 == Changelog ==
+
+= 1.1 =
+* Hovercards are now not reloaded when they're still visible
+* Never show two hovercards at the same time
+* Hovercards were loaded during AJAX calls (when the mouse was no longer on)
+
+= 1.0 =
+* Fixed that non-logged in users got a stylish '0' instead of the hovercard
+* Hovercards are now reloaded on _all_ AJAX request (except BP Live Notifications)
+
+= 0.9.6 =
+* Hovercards now refresh anytime something is loaded in with AJAX
+* BP 1.6 Beta 1 & 2 compatibility
+
+= 0.95 =
+* Fixed 'Load More'-bug. Users of the WP admin bar would not get hovercards on posts loaded in using the 'Load More' button.
 
 = 0.9 =
 * Initial upload
