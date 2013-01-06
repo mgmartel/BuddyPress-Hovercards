@@ -5,8 +5,8 @@ Plugin URI: https://github.com/mgmartel/BuddyPress-Hovercards/
 Author: Mike Martel
 Author URI: http://trenvo.nl
 Description: Adds hovercard to Buddypress avatars
-Version: 1.0
-Revision Date: October 5th, 2012
+Version: 1.1
+Revision Date: Januari 6th, 2013
 */
 
 /**
