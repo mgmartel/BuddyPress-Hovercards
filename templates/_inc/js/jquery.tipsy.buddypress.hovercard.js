@@ -5,24 +5,36 @@
 // released under the MIT license
 
 (function($) {
+  var timeoutEl, timeoutId;
+
   $.fn.tipsyHoverCard = function(options) {
-    var cache = new Array();
+    if ( ! window.bphc_cache )
+	window.bphc_cache = new Array();
+
     var opts = $.extend({}, $.fn.tipsyHoverCard.defaults, options, $.fn.tipsyHoverCard.forcedOptions);
     this.tipsy(opts);
 
     function clearHideTimeout(ele) {
       if( ele.data('timeoutId') ) clearTimeout(ele.data('timeoutId'));
+      if ( ele == timeoutEl ) timeoutEl = null;
       ele.data('timeoutId', null);
     }
     function setHideTimeout(ele) {
       clearHideTimeout(ele);
-      var options = ele.tipsy(true).options;
-      timeoutId = setTimeout(function() { $(ele).tipsy('hide'); }, options.hideDelay);
+      //var options = ele.tipsy(true).options;
+      timeoutId = setTimeout(function() { $(ele).tipsy('hide'); ele.data('visible', false); }, 600);
+      timeoutEl = ele;
       ele.data('timeoutId', timeoutId);
     }
 
     function show(ele) {
       clearHideTimeout(ele);
+
+      if ( ele != timeoutEl && typeof timeoutEl !== "undefined" ) {
+        jQuery('.tipsy').fadeOut();
+        timeoutEl.data('visible', false);
+      }
+
       ele.tipsy(opts).tipsy('show');
 
       var tip = ele.tipsy('tip');
@@ -33,36 +45,40 @@
     }
     function hide(ele) {
       setHideTimeout(ele);
-      ele.data('visible', false);
     }
 
     function enter() {
       var a = $(this);
+      if ( a.data('visible') ) return;
+
       var url = ajaxurl;
-	  var user_id = a.attr('class').split('-')[1];
+      var user_id = a.attr('class').split('-')[1];
       if( url && !a.data('ajax-success') ) {
-        if ( cache[user_id] ) {
+        if ( window.bphc_cache[user_id] ) {
             a.data('ajax-success', true);
-            a.attr('title', cache[user_id]);
+            a.attr('title', window.bphc_cache[user_id]);
             a.data('tipsyAnchor');
-            if ( a.data('visible') )
+            if ( ! a.data('visible') )
                 show(a);
         } else {
             var data = {
-                    action: 'buddypress_hovercard',
-                    userid: user_id
+                action: 'buddypress_hovercard',
+                userid: user_id
             };
             jQuery.post(url, data, function(response) {
-                    a.data('ajax-success', true);
-                    a.attr('title', response);
-                    a.data('tipsyAnchor');
-                    cache[user_id] = response;
-                    if ( a.data('visible') )
-                        show(a);
+                a.data('ajax-success', true);
+                a.attr('title', response);
+                a.data('tipsyAnchor');
+                window.bphc_cache[user_id] = response;
+
+                //if ( ! a.data('timeoutId') )
+                if ( a != timeoutEl && ! a.data('timeoutId') ){
+                    show(a);
+                }
             });
         }
-      }
-      show(a);
+      } else
+        show(a);
     }
     function leave() {
       hide($(this));
@@ -92,7 +108,7 @@
   $.fn.tipsyHoverCard.defaults = {
     gravity: $.fn.tipsy.autoBounds(350,'nw'),
     fade: true,
-    fallback: '...',
+    fallback: '',
     html: true,
     hideDelay: 600,
     opacity: 1,
@@ -103,17 +119,25 @@
       timeout: 0
     }
   };
+
+    $(document).ready(function() {
+        // Add hovercards to our avatars
+        $("img[class^='avatar user']").tipsyHoverCard();
+
+        // Make our hovercards hoverable (so you can add links inside them)
+        $('.tipsy').live('mouseover',function(e){
+            clearTimeout(timeoutId);
+        });
+        $('.tipsy').live('mouseleave',function(e){
+            $(this).fadeOut();
+            timeoutEl.data('visible', false);
+        });
+    // Reload the hovercards after an AJAX call is made
+    }).ajaxComplete( function(e, xhr, settings) {
+        // OK, to make sure it always works: reload on every AJAX response with data - except for Live Notifications
+            if ( typeof settings.data !== "undefined" && settings.data.indexOf("action=bpln_check_notification") == -1 )
+            // To make (kindof) sure everything is loaded, set a timeout before reloading the hovercards after an ajax call
+            setTimeout ( 'jQuery("img[class^=\'avatar user\']").tipsyHoverCard()', 1000 );
+    });
+
 })(jQuery);
-
-jQuery(document).ready(function() {
-    // Add hovercards to our avatars
-    jQuery("img[class^='avatar user']").tipsyHoverCard();
-
-    // Make our hovercards hoverable (so you can add links inside them)
-    jQuery('.tipsy').live('mouseover',function(e){
-        clearTimeout(timeoutId);
-    });
-    jQuery('.tipsy').live('mouseleave',function(e){
-        jQuery(this).fadeOut();
-    });
-});

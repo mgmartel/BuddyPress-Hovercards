@@ -2,11 +2,11 @@
 /*
 Plugin Name: BuddyPress Hovercards
 Plugin URI: https://github.com/mgmartel/BuddyPress-Hovercards/
-Author: Mike Martel & iMath
+Author: Mike Martel
 Author URI: http://trenvo.nl
 Description: Adds hovercard to Buddypress avatars
-Version: 0.9
-Revision Date: June 26, 2012
+Version: 1.0
+Revision Date: October 5th, 2012
 */
 
 /**
@@ -82,6 +82,7 @@ if ( ! class_exists( 'BuddyPress_Hovercards' ) ) :
         public function __construct() {
             add_action('wp_enqueue_scripts',array ( &$this, 'load_scripts' ) );
             add_action('wp_ajax_buddypress_hovercard', array( &$this, 'ajax_hovercard' ) );
+	    add_action('wp_ajax_nopriv_buddypress_hovercard', array( &$this, 'ajax_hovercard' ) );
         }
             /**
              * PHP4
