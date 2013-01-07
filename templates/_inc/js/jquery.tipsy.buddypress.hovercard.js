@@ -122,7 +122,7 @@
 
     $(document).ready(function() {
         // Add hovercards to our avatars
-        $("img[class^='avatar user']").tipsyHoverCard();
+        $.add_bp_hovercards();
 
         // Make our hovercards hoverable (so you can add links inside them)
         $('.tipsy').live('mouseover',function(e){
@@ -137,7 +137,25 @@
         // OK, to make sure it always works: reload on every AJAX response with data - except for Live Notifications
             if ( typeof settings.data !== "undefined" && settings.data.indexOf("action=bpln_check_notification") == -1 )
             // To make (kindof) sure everything is loaded, set a timeout before reloading the hovercards after an ajax call
-            setTimeout ( 'jQuery("img[class^=\'avatar user\']").tipsyHoverCard()', 1000 );
+            setTimeout ( 'jQuery.add_bp_hovercards()', 1000 );
     });
+
+    // Parents filter
+    $.expr[':'].parents = function(a,i,m) {
+        return jQuery(a).parents(m[3]).length < 1;
+    };
+    // Add hovercards function. Attached to jq, so we can access it with the setTimeout above
+    $.add_bp_hovercards = function() {
+        var avatar_filter = 'img[class^="avatar user"]';
+
+        if ( bphc.parent_filter )
+            avatar_filter += ':parents(' + bphc.parent_filter +')';
+
+        if ( bphc.element_filter )
+            avatar_filter += ':not(' + bphc.element_filter + ')';
+
+        var avatars = jQuery(avatar_filter);
+        avatars.tipsyHoverCard();
+    }
 
 })(jQuery);
