@@ -29,16 +29,17 @@ If you want to add a custom hovercard, or change the displayed fields, copy '/bp
 
 = How can I disable hovercards for certain avatars? =
 
-Hovercards are disabled for some avatars already, namely the profile badge and the profile header. To add more disabled elements, you can use the foloowing filters:
+Hovercards are disabled for some avatars already, namely the profile badge and the profile header. To add more disabled elements, you can use the folowing filters:
 
-`bphc_parent_filter` to disable hovercards for all children of a certain element id or class, e.g.:
+'bphc_parent_filter' to disable hovercards for all children of a certain element id or class, e.g.:
 
 `function disable_bphc_by_parent( $filter ) {
     return $filter . ', .children-of-this-class';
 }
 add_filter('bphc_parent_filter', 'disable_bphc_by_parent');`
 
-`bphc_element_filter` to disable hovercards for avatar img tag with this class/id, e.g.:
+'bphc_element_filter' to disable hovercards for avatar img tag with this class/id, e.g.:
+
 `function disable_bphc_for_elements ( $filter ) {
     return $filter . ', .avatars-with-this-class, #avatar-with-this-id'
 }
